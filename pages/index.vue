@@ -48,11 +48,8 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
 
 <template>
   <section class="space-y-5">
-    <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-2">
       <h2 class="text-xl font-semibold text-emerald-900 sm:text-2xl">Beet-Übersicht</h2>
-      <NuxtLink class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" to="/beds">
-        + Beete verwalten
-      </NuxtLink>
     </div>
 
     <div class="card-soft flex flex-wrap items-center gap-3 p-3 text-xs font-medium">
