@@ -10,6 +10,7 @@ export type RotationResult = {
   recommendedCropIds: string[]
 }
 
+// Normalize free-text values (German/English, casing, umlauts) so rule matching is stable.
 const normalizeKey = (value: string): string => {
   return value
     .toLowerCase()
@@ -19,6 +20,7 @@ const normalizeKey = (value: string): string => {
     .replace(/[\u0300-\u036f]/g, '')
 }
 
+// Map localized nutrient labels to an internal rank used by rotation comparisons.
 const nutrientRank = (demand: NutrientDemand | string): number => {
   const key = normalizeKey(String(demand))
   if (key === 'low' || key === 'niedrig') {
@@ -34,6 +36,7 @@ const nutrientRank = (demand: NutrientDemand | string): number => {
   return 2
 }
 
+// Unify localized crop names to canonical keys used in incompatibility checks.
 const canonicalCropName = (name: string): string => {
   const key = normalizeKey(name)
 
@@ -75,6 +78,7 @@ const getRecentBedRecords = (
   year: number,
   yearsBack: number
 ): PlantingRecord[] => {
+  // Use only past records in the configured lookback window for the same bed.
   return plantingRecords.filter((record) => {
     const diff = year - record.year
     return record.bedId === bedId && diff > 0 && diff <= yearsBack
@@ -112,6 +116,7 @@ export const evaluateRotation = (
 
   const warnings: RotationWarning[] = []
 
+  // Rule 1: same family should not return to the same bed within 3 years.
   const sameFamilyCrop = recentCrops.find((crop) => crop.family === targetCrop.family)
   if (sameFamilyCrop) {
     warnings.push({
@@ -120,6 +125,8 @@ export const evaluateRotation = (
     })
   }
 
+  // Rule 2 (user-specific): warn only if a new high-demand crop follows
+  // any high-demand crop in the same bed within the last 4 years.
   const isHighDemandTarget = nutrientRank(targetCrop.nutrientDemand) === 3
   const hadHighDemandInLast4Years = recent4YearCrops.some((crop) => nutrientRank(crop.nutrientDemand) === 3)
   if (isHighDemandTarget && hadHighDemandInLast4Years) {
@@ -129,6 +136,7 @@ export const evaluateRotation = (
     })
   }
 
+  // Rule 3: detect configured incompatible crop sequences.
   const incompatibleNames = incompatibleByCanonical.get(canonicalCropName(targetCrop.name)) ?? []
   const incompatibleMatch = recentCrops.find((crop) => incompatibleNames.includes(canonicalCropName(crop.name)))
   if (incompatibleMatch) {
@@ -140,6 +148,7 @@ export const evaluateRotation = (
 
   const recommendedCropIds = crops
     .filter((crop) => {
+      // Don't recommend blocked families from the recent 3-year window.
       const familyBlocked = recentCrops.some((recentCrop) => recentCrop.family === crop.family)
       if (familyBlocked) {
         return false
@@ -149,6 +158,7 @@ export const evaluateRotation = (
         return true
       }
 
+      // Prefer crops with equal or lower demand than the previous year average.
       const avgLastYearDemand =
         lastYearCrops.reduce((sum, recent) => sum + nutrientRank(recent.nutrientDemand), 0) / lastYearCrops.length
       const cropDemand = nutrientRank(crop.nutrientDemand)
