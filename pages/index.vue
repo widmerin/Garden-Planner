@@ -25,10 +25,14 @@ const summary = computed(() => {
       return { year, crops }
     })
 
+    const compactHistory = timeline
+      .filter((entry) => entry.crops.length > 0)
+      .slice(0, 3)
+
     return {
       bed,
       lastYearCrops,
-      timeline
+      compactHistory
     }
   })
 })
@@ -86,17 +90,16 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
           <p v-else class="text-xs text-slate-500">Keine Einträge</p>
         </div>
 
-        <details class="mt-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
-          <summary class="cursor-pointer text-xs font-semibold text-slate-700">Historie (5 Jahre)</summary>
-          <div class="mt-2 space-y-1.5">
+        <div class="mt-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
+          <p class="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-600">Letzte Historie</p>
+          <div v-if="item.compactHistory.length" class="space-y-1.5">
             <div
-              v-for="entry in item.timeline"
+              v-for="entry in item.compactHistory"
               :key="`mobile-${item.bed.id}-${entry.year}`"
               class="rounded-md border border-emerald-100 bg-white p-2"
             >
               <p class="text-[11px] font-semibold text-emerald-900">{{ entry.year }}</p>
               <div class="mt-1 flex flex-wrap gap-1">
-                <span v-if="!entry.crops.length" class="text-[11px] text-slate-500">-</span>
                 <span v-for="crop in entry.crops" :key="`mobile-${item.bed.id}-${entry.year}-${crop.id}`" class="chip-crop">
                   <span>{{ cropIcon(crop) }}</span>
                   <span class="truncate">{{ crop.name }}</span>
@@ -111,7 +114,8 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
               </div>
             </div>
           </div>
-        </details>
+          <p v-else class="text-xs text-slate-500">Keine Historie</p>
+        </div>
       </article>
     </div>
 
@@ -149,28 +153,30 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
         </div>
 
         <div class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Historie (5 Jahre)</p>
-          <div
-            v-for="entry in item.timeline"
-            :key="`${item.bed.id}-${entry.year}`"
-            class="grid grid-cols-1 items-start gap-1 rounded-lg border border-emerald-100 bg-emerald-50/40 p-2 sm:grid-cols-[4.2rem_1fr] sm:gap-2"
-          >
-            <span class="text-sm font-semibold text-emerald-900">{{ entry.year }}</span>
-            <div class="flex flex-wrap gap-1.5">
-              <span v-if="!entry.crops.length" class="text-xs text-slate-500">-</span>
-              <span v-for="crop in entry.crops" :key="`${item.bed.id}-${entry.year}-${crop.id}`" class="chip-crop">
-                <span>{{ cropIcon(crop) }}</span>
-                <span>{{ crop.name }}</span>
-                <span
-                  v-if="hasHighDemand(crop.nutrientDemand)"
-                  :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
-                  class="text-sm"
-                >
-                  ⚡
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Letzte Historie</p>
+          <div v-if="item.compactHistory.length" class="space-y-1.5">
+            <div
+              v-for="entry in item.compactHistory"
+              :key="`${item.bed.id}-${entry.year}`"
+              class="grid grid-cols-[3.5rem_1fr] items-start gap-2 rounded-lg border border-emerald-100 bg-emerald-50/40 p-2"
+            >
+              <span class="text-sm font-semibold text-emerald-900">{{ entry.year }}</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span v-for="crop in entry.crops" :key="`${item.bed.id}-${entry.year}-${crop.id}`" class="chip-crop">
+                  <span>{{ cropIcon(crop) }}</span>
+                  <span>{{ crop.name }}</span>
+                  <span
+                    v-if="hasHighDemand(crop.nutrientDemand)"
+                    :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
+                    class="text-sm"
+                  >
+                    ⚡
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
+          <p v-else class="text-sm text-slate-500">Keine Historie</p>
         </div>
 
         <NuxtLink :to="`/beds/${item.bed.id}`" class="mt-4 inline-block text-sm font-semibold text-emerald-700 hover:underline">
