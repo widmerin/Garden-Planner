@@ -6,14 +6,24 @@ import { nutrientDemandLabel } from '~/utils/labels'
 const store = useGardenStore()
 store.initialize()
 
+const currentYear = new Date().getFullYear()
 const lastYear = new Date().getFullYear() - 1
 
 const summary = computed(() => {
   return store.beds.map((bed) => {
+    const currentYearCrops = store.records
+      .filter((record) => record.bedId === bed.id && record.year === currentYear)
+      .map((record) => store.cropById(record.cropId))
+      .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
+
     const lastYearCrops = store.records
       .filter((record) => record.bedId === bed.id && record.year === lastYear)
       .map((record) => store.cropById(record.cropId))
       .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
+
+    const headlineYear = currentYearCrops.length ? currentYear : lastYear
+    const headlineCrops = currentYearCrops.length ? currentYearCrops : lastYearCrops
+    const hasCurrentYearData = currentYearCrops.length > 0
 
     const years = Array.from({ length: 5 }, (_, idx) => new Date().getFullYear() - idx)
     const timeline = years.map((year) => {
@@ -31,7 +41,9 @@ const summary = computed(() => {
 
     return {
       bed,
-      lastYearCrops,
+      headlineYear,
+      headlineCrops,
+      hasCurrentYearData,
       compactHistory
     }
   })
@@ -73,9 +85,11 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
         </div>
 
         <div class="mt-2">
-          <p class="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500">Letztes Jahr ({{ lastYear }})</p>
-          <div v-if="item.lastYearCrops.length" class="flex flex-wrap gap-1.5">
-            <span v-for="crop in item.lastYearCrops" :key="`mobile-${item.bed.id}-${crop.id}`" class="chip-crop">
+          <p class="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            {{ item.hasCurrentYearData ? `Aktuelles Beetjahr (${item.headlineYear})` : `Letztes Jahr (${item.headlineYear})` }}
+          </p>
+          <div v-if="item.headlineCrops.length" class="flex flex-wrap gap-1.5">
+            <span v-for="crop in item.headlineCrops" :key="`mobile-${item.bed.id}-${crop.id}`" class="chip-crop">
               <span>{{ cropIcon(crop) }}</span>
               <span class="truncate">{{ crop.name }}</span>
               <span
@@ -135,9 +149,11 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
         </div>
 
         <div class="mb-4">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Letztes Jahr ({{ lastYear }})</p>
-          <div v-if="item.lastYearCrops.length" class="flex flex-wrap gap-2">
-            <span v-for="crop in item.lastYearCrops" :key="`${item.bed.id}-${crop.id}`" class="chip-crop">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {{ item.hasCurrentYearData ? `Aktuelles Beetjahr (${item.headlineYear})` : `Letztes Jahr (${item.headlineYear})` }}
+          </p>
+          <div v-if="item.headlineCrops.length" class="flex flex-wrap gap-2">
+            <span v-for="crop in item.headlineCrops" :key="`${item.bed.id}-${crop.id}`" class="chip-crop">
               <span>{{ cropIcon(crop) }}</span>
               <span>{{ crop.name }}</span>
               <span
