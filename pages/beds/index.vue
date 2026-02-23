@@ -88,14 +88,14 @@ const recentCropsForBed = (bedId: string) => {
               <p class="text-sm text-slate-600">{{ bed.width }}m x {{ bed.height }}m</p>
               <p class="text-sm text-slate-500">{{ bed.notes || 'Keine Notizen' }}</p>
             </div>
-            <div class="flex gap-2">
-              <NuxtLink :to="`/beds/${bed.id}`" class="rounded-full bg-emerald-100 px-3 py-1.5 text-sm hover:bg-emerald-200">
+            <div class="flex w-full flex-wrap gap-2 sm:w-auto">
+              <NuxtLink :to="`/beds/${bed.id}`" class="inline-flex min-h-10 items-center justify-center rounded-full bg-emerald-100 px-3 py-1.5 text-sm hover:bg-emerald-200">
                 Details
               </NuxtLink>
-              <button class="rounded-full bg-slate-100 px-3 py-1.5 text-sm hover:bg-slate-200" @click="startEdit(bed)">
+              <button class="inline-flex min-h-10 items-center justify-center rounded-full bg-slate-100 px-3 py-1.5 text-sm hover:bg-slate-200" @click="startEdit(bed)">
                 Bearbeiten
               </button>
-              <button class="rounded-full bg-rose-100 px-3 py-1.5 text-sm text-rose-700 hover:bg-rose-200" @click="removeBed(bed.id)">
+              <button class="inline-flex min-h-10 items-center justify-center rounded-full bg-rose-100 px-3 py-1.5 text-sm text-rose-700 hover:bg-rose-200" @click="removeBed(bed.id)">
                 Löschen
               </button>
             </div>
@@ -124,25 +124,25 @@ const recentCropsForBed = (bedId: string) => {
       <form class="space-y-3" @submit.prevent="saveBed">
         <label class="block text-sm">
           <span class="mb-1 block font-medium">Name</span>
-          <input v-model="form.name" class="w-full rounded-md border border-slate-300 px-3 py-2" required />
+          <input v-model="form.name" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2" required />
         </label>
         <label class="block text-sm">
           <span class="mb-1 block font-medium">Breite (m)</span>
-          <input v-model.number="form.width" class="w-full rounded-md border border-slate-300 px-3 py-2" min="1" type="number" required />
+          <input v-model.number="form.width" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2" min="1" type="number" required />
         </label>
         <label class="block text-sm">
           <span class="mb-1 block font-medium">Länge (m)</span>
-          <input v-model.number="form.height" class="w-full rounded-md border border-slate-300 px-3 py-2" min="1" type="number" required />
+          <input v-model.number="form.height" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2" min="1" type="number" required />
         </label>
         <label class="block text-sm">
           <span class="mb-1 block font-medium">Notizen</span>
           <textarea v-model="form.notes" class="w-full rounded-md border border-slate-300 px-3 py-2" rows="3" />
         </label>
-        <div class="flex gap-2">
-          <button class="rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">
+        <div class="flex flex-wrap gap-2">
+          <button class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">
             Speichern
           </button>
-          <button class="rounded-full bg-slate-200 px-4 py-2 text-sm hover:bg-slate-300" type="button" @click="resetForm">
+          <button class="inline-flex min-h-11 items-center justify-center rounded-full bg-slate-200 px-4 py-2 text-sm hover:bg-slate-300" type="button" @click="resetForm">
             Zurücksetzen
           </button>
         </div>

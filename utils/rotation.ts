@@ -96,6 +96,7 @@ export const evaluateRotation = (
   }
 
   const recent3Years = getRecentBedRecords(plantingRecords, bedId, year, 3)
+  const recent4Years = getRecentBedRecords(plantingRecords, bedId, year, 4)
   const recent1Year = getRecentBedRecords(plantingRecords, bedId, year, 1)
 
   const recentCrops = recent3Years
@@ -116,11 +117,11 @@ export const evaluateRotation = (
     })
   }
 
-  const sameNutrientCrop = lastYearCrops.find((crop) => crop.nutrientDemand === targetCrop.nutrientDemand)
-  if (sameNutrientCrop) {
+  const isHighDemandTarget = nutrientRank(targetCrop.nutrientDemand) === 3
+  if (isHighDemandTarget && recent4Years.length > 0) {
     warnings.push({
       code: 'same_nutrient',
-      message: `Nährstoff-Warnung: Bedarf „${nutrientDemandLabel(targetCrop.nutrientDemand)}“ wurde in diesem Beet im letzten Jahr bereits genutzt.`
+      message: `Nährstoff-Warnung: ${targetCrop.name} hat einen hohen Nährstoffbedarf und dieses Beet wurde in den letzten 4 Jahren bereits bepflanzt.`
     })
   }
 

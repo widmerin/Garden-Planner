@@ -62,18 +62,18 @@ const addPlanting = () => {
         <form class="space-y-3" @submit.prevent="addPlanting">
           <label class="block text-sm">
             <span class="mb-1 block font-medium">Jahr</span>
-            <input v-model.number="year" class="w-full rounded-md border border-slate-300 px-3 py-2" type="number" min="2000" max="2100" />
+            <input v-model.number="year" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2" type="number" min="2000" max="2100" />
           </label>
           <label class="block text-sm">
             <span class="mb-1 block font-medium">Kultur</span>
-            <select v-model="cropId" class="w-full rounded-md border border-slate-300 px-3 py-2" required>
+            <select v-model="cropId" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2" required>
               <option disabled value="">Kultur auswählen</option>
               <option v-for="crop in store.crops" :key="crop.id" :value="crop.id">
                 {{ cropIcon(crop) }} {{ crop.name }} ({{ crop.family }} / {{ nutrientDemandLabel(crop.nutrientDemand) }})
               </option>
             </select>
           </label>
-          <button class="rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">
+          <button class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">
             Anpflanzung speichern
           </button>
         </form>

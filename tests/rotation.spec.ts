@@ -20,9 +20,14 @@ describe('evaluateRotation', () => {
     expect(result.warnings.some((w) => w.code === 'same_family')).toBe(true)
   })
 
-  it('warns for same nutrient demand from previous year', () => {
+  it('warns for high-demand crop when bed had any crop in last 4 years', () => {
     const result = evaluateRotation('bed-1', 'potato', 2025, crops, records)
     expect(result.warnings.some((w) => w.code === 'same_nutrient')).toBe(true)
+  })
+
+  it('does not warn for nutrient rule on non-high crop', () => {
+    const result = evaluateRotation('bed-1', 'beans', 2025, crops, records)
+    expect(result.warnings.some((w) => w.code === 'same_nutrient')).toBe(false)
   })
 
   it('warns for incompatible combinations', () => {

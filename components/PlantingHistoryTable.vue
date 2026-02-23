@@ -19,9 +19,29 @@ const nutrientDemandForRecord = (cropId: string): string => {
 </script>
 
 <template>
-  <div class="card-soft overflow-x-auto p-4">
+  <div class="card-soft p-4">
     <h3 class="mb-3 text-lg font-semibold">Pflanzhistorie (5 Jahre)</h3>
-    <table class="w-full border-collapse text-left text-sm">
+
+    <div class="space-y-2 md:hidden">
+      <article
+        v-for="record in records"
+        :key="`mobile-${record.id}`"
+        class="rounded-xl border border-slate-200 bg-slate-50 p-3"
+      >
+        <div class="mb-2 flex items-center justify-between gap-2">
+          <span class="text-sm font-semibold text-slate-700">{{ record.year }}</span>
+          <span class="chip-crop">
+            <span>{{ cropIcon(cropById.get(record.cropId)) }}</span>
+            <span>{{ cropById.get(record.cropId)?.name ?? 'Unbekannt' }}</span>
+          </span>
+        </div>
+        <p class="text-xs text-slate-600">Familie: {{ cropById.get(record.cropId)?.family ?? '-' }}</p>
+        <p class="text-xs text-slate-600">Nährstoffbedarf: {{ nutrientDemandForRecord(record.cropId) }}</p>
+      </article>
+    </div>
+
+    <div class="hidden overflow-x-auto md:block">
+      <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200 text-slate-600">
           <th class="pb-2">Jahr</th>
@@ -43,6 +63,7 @@ const nutrientDemandForRecord = (cropId: string): string => {
           <td class="py-2">{{ nutrientDemandForRecord(record.cropId) }}</td>
         </tr>
       </tbody>
-    </table>
+      </table>
+    </div>
   </div>
 </template>
