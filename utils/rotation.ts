@@ -11,20 +11,63 @@ export type RotationResult = {
   recommendedCropIds: string[]
 }
 
-const nutrientRank: Record<NutrientDemand, number> = {
-  low: 1,
-  medium: 2,
-  high: 3
+const normalizeKey = (value: string): string => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/ß/g, 'ss')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
 }
 
-const incompatibleByName = new Map<string, string[]>([
-  ['Tomato', ['Potatoes']],
-  ['Potatoes', ['Tomato']],
-  ['Onion', ['Beans', 'Peas']],
-  ['Beans', ['Onion']],
-  ['Peas', ['Onion']],
-  ['Cucumber', ['Pumpkin']],
-  ['Pumpkin', ['Cucumber']]
+const nutrientRank = (demand: NutrientDemand | string): number => {
+  const key = normalizeKey(String(demand))
+  if (key === 'low' || key === 'niedrig') {
+    return 1
+  }
+  if (key === 'medium' || key === 'mittel') {
+    return 2
+  }
+  if (key === 'high' || key === 'hoch') {
+    return 3
+  }
+
+  return 2
+}
+
+const canonicalCropName = (name: string): string => {
+  const key = normalizeKey(name)
+
+  const aliases: Record<string, string> = {
+    tomato: 'tomato',
+    tomate: 'tomato',
+    potatoes: 'potato',
+    potato: 'potato',
+    kartoffeln: 'potato',
+    onion: 'onion',
+    zwiebel: 'onion',
+    beans: 'beans',
+    bohnen: 'beans',
+    peas: 'peas',
+    erbsen: 'peas',
+    cucumber: 'cucumber',
+    gurke: 'cucumber',
+    pumpkin: 'pumpkin',
+    kuerbis: 'pumpkin',
+    kurbis: 'pumpkin'
+  }
+
+  return aliases[key] ?? key
+}
+
+const incompatibleByCanonical = new Map<string, string[]>([
+  ['tomato', ['potato']],
+  ['potato', ['tomato', 'pumpkin']],
+  ['onion', ['beans', 'peas']],
+  ['beans', ['onion']],
+  ['peas', ['onion']],
+  ['cucumber', ['pumpkin']],
+  ['pumpkin', ['cucumber', 'potato']]
 ])
 
 const getRecentBedRecords = (
@@ -81,8 +124,8 @@ export const evaluateRotation = (
     })
   }
 
-  const incompatibleNames = incompatibleByName.get(targetCrop.name) ?? []
-  const incompatibleMatch = recentCrops.find((crop) => incompatibleNames.includes(crop.name))
+  const incompatibleNames = incompatibleByCanonical.get(canonicalCropName(targetCrop.name)) ?? []
+  const incompatibleMatch = recentCrops.find((crop) => incompatibleNames.includes(canonicalCropName(crop.name)))
   if (incompatibleMatch) {
     warnings.push({
       code: 'incompatible_pair',
@@ -102,8 +145,8 @@ export const evaluateRotation = (
       }
 
       const avgLastYearDemand =
-        lastYearCrops.reduce((sum, recent) => sum + nutrientRank[recent.nutrientDemand], 0) / lastYearCrops.length
-      const cropDemand = nutrientRank[crop.nutrientDemand]
+        lastYearCrops.reduce((sum, recent) => sum + nutrientRank(recent.nutrientDemand), 0) / lastYearCrops.length
+      const cropDemand = nutrientRank(crop.nutrientDemand)
 
       return cropDemand <= avgLastYearDemand
     })

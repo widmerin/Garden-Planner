@@ -30,6 +30,19 @@ describe('evaluateRotation', () => {
     expect(result.warnings.some((w) => w.code === 'incompatible_pair')).toBe(true)
   })
 
+  it('warns for localized incompatible combinations (Kartoffeln after Kürbis)', () => {
+    const deCrops: Crop[] = [
+      { id: 'kartoffeln', name: 'Kartoffeln', family: 'Solanaceae', nutrientDemand: 'high' },
+      { id: 'kuerbis', name: 'Kürbis', family: 'Cucurbitaceae', nutrientDemand: 'high' }
+    ]
+    const deRecords: PlantingRecord[] = [
+      { id: 'de-1', bedId: 'suedbeet', cropId: 'kuerbis', year: 2024 }
+    ]
+
+    const result = evaluateRotation('suedbeet', 'kartoffeln', 2025, deCrops, deRecords)
+    expect(result.warnings.some((w) => w.code === 'incompatible_pair')).toBe(true)
+  })
+
   it('recommends crop families not used in last 3 years', () => {
     const result = evaluateRotation('bed-1', 'lettuce', 2025, crops, records)
     expect(result.recommendedCropIds).toContain('lettuce')
