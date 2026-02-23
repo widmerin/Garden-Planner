@@ -20,9 +20,24 @@ describe('evaluateRotation', () => {
     expect(result.warnings.some((w) => w.code === 'same_family')).toBe(true)
   })
 
-  it('warns for high-demand crop when bed had any crop in last 4 years', () => {
+  it('warns for high-demand crop when another high-demand crop was in same bed in last 4 years', () => {
     const result = evaluateRotation('bed-1', 'potato', 2025, crops, records)
     expect(result.warnings.some((w) => w.code === 'same_nutrient')).toBe(true)
+  })
+
+  it('does not warn for high-demand crop when only low/medium crops were in last 4 years', () => {
+    const cropsNoHighHistory: Crop[] = [
+      { id: 'paprika', name: 'Paprika', family: 'Solanaceae', nutrientDemand: 'high' },
+      { id: 'basilikum', name: 'Basilikum', family: 'Lamiaceae', nutrientDemand: 'low' },
+      { id: 'petersilie', name: 'Petersilie', family: 'Apiaceae', nutrientDemand: 'low' }
+    ]
+    const recordsNoHighHistory: PlantingRecord[] = [
+      { id: 'h1', bedId: 'kraeuterbeet', cropId: 'basilikum', year: 2024 },
+      { id: 'h2', bedId: 'kraeuterbeet', cropId: 'petersilie', year: 2023 }
+    ]
+
+    const result = evaluateRotation('kraeuterbeet', 'paprika', 2025, cropsNoHighHistory, recordsNoHighHistory)
+    expect(result.warnings.some((w) => w.code === 'same_nutrient')).toBe(false)
   })
 
   it('does not warn for nutrient rule on non-high crop', () => {

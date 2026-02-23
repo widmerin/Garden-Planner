@@ -1,5 +1,4 @@
 import type { Crop, NutrientDemand, PlantingRecord } from '~/types/models'
-import { nutrientDemandLabel } from '~/utils/labels'
 
 export type RotationWarning = {
   code: 'same_family' | 'same_nutrient' | 'incompatible_pair'
@@ -103,6 +102,10 @@ export const evaluateRotation = (
     .map((record) => crops.find((crop) => crop.id === record.cropId))
     .filter((crop): crop is Crop => Boolean(crop))
 
+  const recent4YearCrops = recent4Years
+    .map((record) => crops.find((crop) => crop.id === record.cropId))
+    .filter((crop): crop is Crop => Boolean(crop))
+
   const lastYearCrops = recent1Year
     .map((record) => crops.find((crop) => crop.id === record.cropId))
     .filter((crop): crop is Crop => Boolean(crop))
@@ -118,10 +121,11 @@ export const evaluateRotation = (
   }
 
   const isHighDemandTarget = nutrientRank(targetCrop.nutrientDemand) === 3
-  if (isHighDemandTarget && recent4Years.length > 0) {
+  const hadHighDemandInLast4Years = recent4YearCrops.some((crop) => nutrientRank(crop.nutrientDemand) === 3)
+  if (isHighDemandTarget && hadHighDemandInLast4Years) {
     warnings.push({
       code: 'same_nutrient',
-      message: `Nährstoff-Warnung: ${targetCrop.name} hat einen hohen Nährstoffbedarf und dieses Beet wurde in den letzten 4 Jahren bereits bepflanzt.`
+      message: `Nährstoff-Warnung: ${targetCrop.name} hat einen hohen Nährstoffbedarf und in diesem Beet wurde in den letzten 4 Jahren bereits eine Kultur mit hohem Bedarf angebaut.`
     })
   }
 

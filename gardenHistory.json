@@ -125,22 +125,22 @@
     {
       "id": "b1",
       "name": "Nordbeet",
-      "width": 4,
-      "height": 2,
+      "width": 2,
+      "height": 8,
       "notes": "Sonniger Standort"
     },
     {
       "id": "b2",
       "name": "Südbeet",
-      "width": 3,
-      "height": 3,
+      "width": 2,
+      "height": 8,
       "notes": "Halbschattig"
     },
     {
       "id": "b3",
       "name": "Kräuterbeet",
-      "width": 2,
-      "height": 5,
+      "width": 1,
+      "height": 3,
       "notes": "Nahe Küche"
     }
   ],
@@ -150,6 +150,7 @@
     { "id": "p3", "bedId": "b1", "cropId": "c3", "year": 2023 },
     { "id": "p4", "bedId": "b1", "cropId": "c18", "year": 2024 },
     { "id": "p5", "bedId": "b1", "cropId": "c19", "year": 2025 },
+    { "id": "p5", "bedId": "b1", "cropId": "c12", "year": 2026 },
 
     { "id": "p6", "bedId": "b2", "cropId": "c5", "year": 2021 },
     { "id": "p7", "bedId": "b2", "cropId": "c6", "year": 2022 },
@@ -159,8 +160,8 @@
 
     { "id": "p11", "bedId": "b3", "cropId": "c15", "year": 2021 },
     { "id": "p12", "bedId": "b3", "cropId": "c16", "year": 2022 },
-    { "id": "p13", "bedId": "b3", "cropId": "c10", "year": 2023 },
-    { "id": "p14", "bedId": "b3", "cropId": "c14", "year": 2024 },
-    { "id": "p15", "bedId": "b3", "cropId": "c20", "year": 2025 }
+    { "id": "p13", "bedId": "b3", "cropId": "c15", "year": 2023 },
+    { "id": "p14", "bedId": "b3", "cropId": "c16", "year": 2024 },
+    { "id": "p15", "bedId": "b3", "cropId": "c16", "year": 2025 }
   ]
 }
