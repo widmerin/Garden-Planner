@@ -1,0 +1,166 @@
+{
+  "crops": [
+    {
+      "id": "c1",
+      "name": "Karotte",
+      "family": "Apiaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c2",
+      "name": "Tomate",
+      "family": "Solanaceae",
+      "nutrientDemand": "hoch"
+    },
+    {
+      "id": "c3",
+      "name": "Gurke",
+      "family": "Cucurbitaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c4",
+      "name": "Paprika",
+      "family": "Solanaceae",
+      "nutrientDemand": "hoch"
+    },
+    {
+      "id": "c5",
+      "name": "Zucchini",
+      "family": "Cucurbitaceae",
+      "nutrientDemand": "hoch"
+    },
+    {
+      "id": "c6",
+      "name": "Salat",
+      "family": "Asteraceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c7",
+      "name": "Zwiebel",
+      "family": "Amaryllidaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c8",
+      "name": "Kürbis",
+      "family": "Cucurbitaceae",
+      "nutrientDemand": "hoch"
+    },
+    {
+      "id": "c9",
+      "name": "Radieschen",
+      "family": "Brassicaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c10",
+      "name": "Mangold",
+      "family": "Amaranthaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c11",
+      "name": "Erbsen",
+      "family": "Fabaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c12",
+      "name": "Bohnen",
+      "family": "Fabaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c13",
+      "name": "Grünkohl",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c14",
+      "name": "Spinat",
+      "family": "Amaranthaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c15",
+      "name": "Petersilie",
+      "family": "Apiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c16",
+      "name": "Basilikum",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c17",
+      "name": "Kartoffeln",
+      "family": "Solanaceae",
+      "nutrientDemand": "hoch"
+    },
+    {
+      "id": "c18",
+      "name": "Kohlrabi",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c19",
+      "name": "Rote Beete",
+      "family": "Amaranthaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c20",
+      "name": "Sellerie",
+      "family": "Apiaceae",
+      "nutrientDemand": "mittel"
+    }
+  ],
+  "gardenBeds": [
+    {
+      "id": "b1",
+      "name": "Nordbeet",
+      "width": 4,
+      "height": 2,
+      "notes": "Sonniger Standort"
+    },
+    {
+      "id": "b2",
+      "name": "Südbeet",
+      "width": 3,
+      "height": 3,
+      "notes": "Halbschattig"
+    },
+    {
+      "id": "b3",
+      "name": "Kräuterbeet",
+      "width": 2,
+      "height": 5,
+      "notes": "Nahe Küche"
+    }
+  ],
+  "plantingRecords": [
+    { "id": "p1", "bedId": "b1", "cropId": "c1", "year": 2021 },
+    { "id": "p2", "bedId": "b1", "cropId": "c2", "year": 2022 },
+    { "id": "p3", "bedId": "b1", "cropId": "c3", "year": 2023 },
+    { "id": "p4", "bedId": "b1", "cropId": "c18", "year": 2024 },
+    { "id": "p5", "bedId": "b1", "cropId": "c19", "year": 2025 },
+
+    { "id": "p6", "bedId": "b2", "cropId": "c5", "year": 2021 },
+    { "id": "p7", "bedId": "b2", "cropId": "c6", "year": 2022 },
+    { "id": "p8", "bedId": "b2", "cropId": "c7", "year": 2023 },
+    { "id": "p9", "bedId": "b2", "cropId": "c8", "year": 2024 },
+    { "id": "p10", "bedId": "b2", "cropId": "c9", "year": 2025 },
+
+    { "id": "p11", "bedId": "b3", "cropId": "c15", "year": 2021 },
+    { "id": "p12", "bedId": "b3", "cropId": "c16", "year": 2022 },
+    { "id": "p13", "bedId": "b3", "cropId": "c10", "year": 2023 },
+    { "id": "p14", "bedId": "b3", "cropId": "c14", "year": 2024 },
+    { "id": "p15", "bedId": "b3", "cropId": "c20", "year": 2025 }
+  ]
+}
