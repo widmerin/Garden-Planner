@@ -13,6 +13,8 @@ export type Crop = {
   name: string
   family: string
   nutrientDemand: NutrientDemand
+  goodNeighbors?: string[]
+  badNeighbors?: string[]
 }
 
 export type PlantingRecord = {
@@ -20,6 +22,7 @@ export type PlantingRecord = {
   bedId: string
   cropId: string
   year: number
+  role?: 'main' | 'companion'
 }
 
 export type GardenData = {

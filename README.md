@@ -8,6 +8,8 @@ A local-first garden planning app to manage beds, crops, planting history, and s
 - Garden bed management (create/edit/delete)
 - Crop list management
 - Planting records by bed and year
+- Hauptkultur + Nebenkulturen per bed/year
+- Mischkultur hints based on good/bad neighbor lists
 - Rotation warnings:
   - same family in last 3 years
   - repeated nutrient demand
@@ -46,6 +48,8 @@ npm test         # Run unit tests
 - App data is stored in localStorage.
 - Seed data is loaded when no local data exists.
 - Use **Einstellungen** to export/import full JSON backups.
+- `gardenHistory.json` now stores optional `goodNeighbors` / `badNeighbors` on crops.
+- Planting records support optional `role` (`main` or `companion`).
 
 ## UI Notes
 

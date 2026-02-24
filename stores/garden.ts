@@ -81,7 +81,7 @@ export const useGardenStore = defineStore('garden', {
       this.persist()
     },
     addRecord(payload: Omit<PlantingRecord, 'id'>) {
-      this.records.push({ ...payload, id: createId('planting') })
+      this.records.push({ ...payload, role: payload.role ?? 'main', id: createId('planting') })
       this.persist()
     },
     applyYearPlan(assignments: PlanAssignment[], year: number) {
@@ -93,8 +93,19 @@ export const useGardenStore = defineStore('garden', {
           id: createId('planting'),
           bedId: entry.bedId,
           cropId: entry.cropId,
-          year
+          year,
+          role: 'main'
         })
+
+        for (const companionCropId of entry.companionCropIds) {
+          this.records.push({
+            id: createId('planting'),
+            bedId: entry.bedId,
+            cropId: companionCropId,
+            year,
+            role: 'companion'
+          })
+        }
       }
 
       this.persist()

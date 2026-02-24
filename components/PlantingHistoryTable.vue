@@ -16,6 +16,13 @@ const nutrientDemandForRecord = (cropId: string): string => {
   const crop = cropById.value.get(cropId)
   return crop ? nutrientDemandLabel(crop.nutrientDemand) : '-'
 }
+
+const roleLabel = (role: string | undefined): string => {
+  if (role === 'companion') {
+    return 'Nebenkultur'
+  }
+  return 'Hauptkultur'
+}
 </script>
 
 <template>
@@ -37,6 +44,7 @@ const nutrientDemandForRecord = (cropId: string): string => {
         </div>
         <p class="text-xs text-slate-600">Familie: {{ cropById.get(record.cropId)?.family ?? '-' }}</p>
         <p class="text-xs text-slate-600">Nährstoffbedarf: {{ nutrientDemandForRecord(record.cropId) }}</p>
+        <p class="text-xs text-slate-600">Typ: {{ roleLabel(record.role) }}</p>
       </article>
     </div>
 
@@ -48,6 +56,7 @@ const nutrientDemandForRecord = (cropId: string): string => {
           <th class="pb-2">Kultur</th>
           <th class="pb-2">Familie</th>
           <th class="pb-2">Nährstoffbedarf</th>
+          <th class="pb-2">Typ</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +70,7 @@ const nutrientDemandForRecord = (cropId: string): string => {
           </td>
           <td class="py-2">{{ cropById.get(record.cropId)?.family ?? '-' }}</td>
           <td class="py-2">{{ nutrientDemandForRecord(record.cropId) }}</td>
+          <td class="py-2">{{ roleLabel(record.role) }}</td>
         </tr>
       </tbody>
       </table>

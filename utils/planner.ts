@@ -14,6 +14,7 @@ export type PlanAssignment = {
   bedId: string
   cropId: string
   warnings: RotationWarning[]
+  companionCropIds: string[]
 }
 
 export type PlanSuggestion = {
@@ -133,7 +134,8 @@ export const suggestBedDistribution = (
         id: option.selectionId,
         bedId: option.bedId,
         cropId: option.cropId,
-        warnings: option.warnings
+        warnings: option.warnings,
+        companionCropIds: []
       })
 
       backtrack(selectionIdx + 1, usedBeds, current, currentScore + option.score)
@@ -155,7 +157,13 @@ export const suggestBedDistribution = (
         continue
       }
       usedBeds.add(pick.bedId)
-      greedy.push({ id: pick.selectionId, bedId: pick.bedId, cropId: pick.cropId, warnings: pick.warnings })
+      greedy.push({
+        id: pick.selectionId,
+        bedId: pick.bedId,
+        cropId: pick.cropId,
+        warnings: pick.warnings,
+        companionCropIds: []
+      })
     }
     bestAssignments = greedy
   }

@@ -2,6 +2,7 @@
 import { cropIcon } from '~/utils/cropVisuals'
 import type { NutrientDemand } from '~/types/models'
 import { nutrientDemandLabel } from '~/utils/labels'
+import { mainAndCompanionForBedYear } from '~/utils/companions'
 
 const store = useGardenStore()
 store.initialize()
@@ -10,31 +11,35 @@ const currentYear = new Date().getFullYear()
 
 const summary = computed(() => {
   return store.beds.map((bed) => {
-    const currentYearCrops = store.records
-      .filter((record) => record.bedId === bed.id && record.year === currentYear)
+    const current = mainAndCompanionForBedYear(store.records, bed.id, currentYear)
+    const mainCrop = current.mainRecord ? store.cropById(current.mainRecord.cropId) : null
+    const companionCrops = current.companionRecords
       .map((record) => store.cropById(record.cropId))
       .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
 
-    const hasCurrentYearData = currentYearCrops.length > 0
+    const years = Array.from({ length: 5 }, (_, idx) => currentYear - idx)
+    const compactHistory = years
+      .map((year) => {
+        const yearData = mainAndCompanionForBedYear(store.records, bed.id, year)
+        const yearMainCrop = yearData.mainRecord ? store.cropById(yearData.mainRecord.cropId) : null
+        const yearCompanions = yearData.companionRecords
+          .map((record) => store.cropById(record.cropId))
+          .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
 
-    const years = Array.from({ length: 5 }, (_, idx) => new Date().getFullYear() - idx)
-    const timeline = years.map((year) => {
-      const crops = store.records
-        .filter((record) => record.bedId === bed.id && record.year === year)
-        .map((record) => store.cropById(record.cropId))
-        .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
-
-      return { year, crops }
-    })
-
-    const compactHistory = timeline
-      .filter((entry) => entry.crops.length > 0)
+        return {
+          year,
+          mainCrop: yearMainCrop,
+          companions: yearCompanions
+        }
+      })
+      .filter((entry) => entry.mainCrop || entry.companions.length > 0)
       .slice(0, 3)
 
     return {
       bed,
-      currentYearCrops,
-      hasCurrentYearData,
+      hasCurrentYearData: Boolean(mainCrop) || companionCrops.length > 0,
+      mainCrop,
+      companionCrops,
       compactHistory
     }
   })
@@ -80,23 +85,36 @@ const openBed = async (bedId: string) => {
           <span class="text-xs font-semibold text-emerald-700">Details →</span>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-2 rounded-lg border border-emerald-100 bg-emerald-50/30 p-2">
           <p class="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500">Aktuelles Beetjahr ({{ currentYear }})</p>
-          <div v-if="item.hasCurrentYearData" class="flex flex-wrap gap-1.5">
-            <span v-for="crop in item.currentYearCrops" :key="`mobile-${item.bed.id}-${crop.id}`" class="chip-crop">
-              <span>{{ cropIcon(crop) }}</span>
-              <span class="truncate">{{ crop.name }}</span>
+
+          <div v-if="item.mainCrop" class="mb-1 flex items-center gap-1.5 text-xs text-emerald-900">
+            <span class="font-semibold">Hauptkultur:</span>
+            <span class="chip-crop">
+              <span>{{ cropIcon(item.mainCrop) }}</span>
+              <span>{{ item.mainCrop.name }}</span>
               <span
-                v-if="hasHighDemand(crop.nutrientDemand)"
-                :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
+                v-if="hasHighDemand(item.mainCrop.nutrientDemand)"
+                :title="`Nährstoffbedarf: ${nutrientDemandLabel(item.mainCrop.nutrientDemand)}`"
                 class="text-xs"
               >
                 ⚡
               </span>
             </span>
           </div>
+
+          <div v-if="item.companionCrops.length" class="text-xs">
+            <p class="mb-1 font-semibold text-slate-700">Nebenkulturen:</p>
+            <div class="flex flex-wrap gap-1">
+              <span v-for="crop in item.companionCrops" :key="`mobile-${item.bed.id}-${crop.id}`" class="chip-crop">
+                <span>{{ cropIcon(crop) }}</span>
+                <span class="truncate">{{ crop.name }}</span>
+              </span>
+            </div>
+          </div>
+
           <NuxtLink
-            v-else
+            v-if="!item.hasCurrentYearData"
             :to="`/beds/${item.bed.id}`"
             class="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
           >
@@ -113,19 +131,12 @@ const openBed = async (bedId: string) => {
               class="rounded-md border border-emerald-100 bg-white p-2"
             >
               <p class="text-[11px] font-semibold text-emerald-900">{{ entry.year }}</p>
-              <div class="mt-1 flex flex-wrap gap-1">
-                <span v-for="crop in entry.crops" :key="`mobile-${item.bed.id}-${entry.year}-${crop.id}`" class="chip-crop">
-                  <span>{{ cropIcon(crop) }}</span>
-                  <span class="truncate">{{ crop.name }}</span>
-                  <span
-                    v-if="hasHighDemand(crop.nutrientDemand)"
-                    :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
-                    class="text-xs"
-                  >
-                    ⚡
-                  </span>
-                </span>
-              </div>
+              <p v-if="entry.mainCrop" class="text-xs text-slate-700">
+                Hauptkultur: {{ cropIcon(entry.mainCrop) }} {{ entry.mainCrop.name }}
+              </p>
+              <p v-if="entry.companions.length" class="text-xs text-slate-600">
+                Nebenkulturen: {{ entry.companions.length }}
+              </p>
             </div>
           </div>
           <p v-else class="text-xs text-slate-500">Keine Historie</p>
@@ -152,23 +163,36 @@ const openBed = async (bedId: string) => {
           <span class="text-xs font-semibold text-emerald-700">Details →</span>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4 rounded-lg border border-emerald-100 bg-emerald-50/30 p-3">
           <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Aktuelles Beetjahr ({{ currentYear }})</p>
-          <div v-if="item.hasCurrentYearData" class="flex flex-wrap gap-2">
-            <span v-for="crop in item.currentYearCrops" :key="`${item.bed.id}-${crop.id}`" class="chip-crop">
-              <span>{{ cropIcon(crop) }}</span>
-              <span>{{ crop.name }}</span>
+
+          <div v-if="item.mainCrop" class="mb-2">
+            <p class="mb-1 text-xs font-semibold text-slate-700">Hauptkultur</p>
+            <span class="chip-crop">
+              <span>{{ cropIcon(item.mainCrop) }}</span>
+              <span>{{ item.mainCrop.name }}</span>
               <span
-                v-if="hasHighDemand(crop.nutrientDemand)"
-                :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
+                v-if="hasHighDemand(item.mainCrop.nutrientDemand)"
+                :title="`Nährstoffbedarf: ${nutrientDemandLabel(item.mainCrop.nutrientDemand)}`"
                 class="text-sm"
               >
                 ⚡
               </span>
             </span>
           </div>
+
+          <div v-if="item.companionCrops.length">
+            <p class="mb-1 text-xs font-semibold text-slate-700">Nebenkulturen</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span v-for="crop in item.companionCrops" :key="`${item.bed.id}-${crop.id}`" class="chip-crop">
+                <span>{{ cropIcon(crop) }}</span>
+                <span>{{ crop.name }}</span>
+              </span>
+            </div>
+          </div>
+
           <NuxtLink
-            v-else
+            v-if="!item.hasCurrentYearData"
             :to="`/beds/${item.bed.id}`"
             class="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
           >
@@ -182,22 +206,15 @@ const openBed = async (bedId: string) => {
             <div
               v-for="entry in item.compactHistory"
               :key="`${item.bed.id}-${entry.year}`"
-              class="grid grid-cols-[3.5rem_1fr] items-start gap-2 rounded-lg border border-emerald-100 bg-emerald-50/40 p-2"
+              class="rounded-lg border border-emerald-100 bg-emerald-50/40 p-2"
             >
-              <span class="text-sm font-semibold text-emerald-900">{{ entry.year }}</span>
-              <div class="flex flex-wrap gap-1.5">
-                <span v-for="crop in entry.crops" :key="`${item.bed.id}-${entry.year}-${crop.id}`" class="chip-crop">
-                  <span>{{ cropIcon(crop) }}</span>
-                  <span>{{ crop.name }}</span>
-                  <span
-                    v-if="hasHighDemand(crop.nutrientDemand)"
-                    :title="`Nährstoffbedarf: ${nutrientDemandLabel(crop.nutrientDemand)}`"
-                    class="text-sm"
-                  >
-                    ⚡
-                  </span>
-                </span>
-              </div>
+              <p class="text-sm font-semibold text-emerald-900">{{ entry.year }}</p>
+              <p v-if="entry.mainCrop" class="text-xs text-slate-700">
+                Hauptkultur: {{ cropIcon(entry.mainCrop) }} {{ entry.mainCrop.name }}
+              </p>
+              <p v-if="entry.companions.length" class="text-xs text-slate-600">
+                Nebenkulturen: {{ entry.companions.length }}
+              </p>
             </div>
           </div>
           <p v-else class="text-sm text-slate-500">Keine Historie</p>

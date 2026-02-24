@@ -4,25 +4,95 @@
       "id": "c1",
       "name": "Karotte",
       "family": "Apiaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Aubergine",
+        "Brokkoli",
+        "Eisbergsalat",
+        "Lauch",
+        "Paprika",
+        "Pflücksalat",
+        "Salat",
+        "Tomate"
+      ]
     },
     {
       "id": "c2",
       "name": "Tomate",
       "family": "Solanaceae",
-      "nutrientDemand": "hoch"
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Blumenkohl",
+        "Bohnen",
+        "Brokkoli",
+        "Chinakohl",
+        "Eisbergsalat",
+        "Grünkohl",
+        "Karotte",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Lauch",
+        "Mairübe",
+        "Pak Choi",
+        "Pflücksalat",
+        "Radieschen",
+        "Rote Beete",
+        "Rotkohl",
+        "Rucola",
+        "Salat",
+        "Sellerie",
+        "Spinat",
+        "Weisskohl",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Aubergine",
+        "Erbsen",
+        "Gurke",
+        "Kartoffeln",
+        "Paprika"
+      ]
     },
     {
       "id": "c3",
       "name": "Gurke",
       "family": "Cucurbitaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Bohnen",
+        "Eisbergsalat",
+        "Erbsen",
+        "Fenchel",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Sellerie",
+        "Spinat",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Kartoffeln",
+        "Kürbis",
+        "Radieschen",
+        "Tomate"
+      ]
     },
     {
       "id": "c4",
       "name": "Paprika",
       "family": "Solanaceae",
-      "nutrientDemand": "hoch"
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Basilikum",
+        "Karotte",
+        "Salat",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Aubergine",
+        "Kartoffeln",
+        "Tomate"
+      ]
     },
     {
       "id": "c5",
@@ -34,91 +104,671 @@
       "id": "c6",
       "name": "Salat",
       "family": "Asteraceae",
-      "nutrientDemand": "niedrig"
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Aubergine",
+        "Blumenkohl",
+        "Bohnen",
+        "Brokkoli",
+        "Chinakohl",
+        "Dill",
+        "Erbsen",
+        "Grünkohl",
+        "Gurke",
+        "Karotte",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Lauch",
+        "Mairübe",
+        "Pak Choi",
+        "Paprika",
+        "Radieschen",
+        "Rote Beete",
+        "Rotkohl",
+        "Rucola",
+        "Sellerie",
+        "Spinat",
+        "Tomate",
+        "Weisskohl",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Petersilie"
+      ]
     },
     {
       "id": "c7",
       "name": "Zwiebel",
       "family": "Amaryllidaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Gurke",
+        "Paprika",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Lauch"
+      ]
     },
     {
       "id": "c8",
       "name": "Kürbis",
       "family": "Cucurbitaceae",
-      "nutrientDemand": "hoch"
+      "nutrientDemand": "hoch",
+      "badNeighbors": [
+        "Gurke",
+        "Kartoffeln"
+      ]
     },
     {
       "id": "c9",
       "name": "Radieschen",
       "family": "Brassicaceae",
-      "nutrientDemand": "niedrig"
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Lauch",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli",
+        "Gurke"
+      ]
     },
     {
       "id": "c10",
       "name": "Mangold",
       "family": "Amaranthaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "badNeighbors": [
+        "Rote Beete"
+      ]
     },
     {
       "id": "c11",
       "name": "Erbsen",
       "family": "Fabaceae",
-      "nutrientDemand": "niedrig"
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Aubergine",
+        "Brokkoli",
+        "Eisbergsalat",
+        "Gurke",
+        "Pflücksalat",
+        "Salat"
+      ],
+      "badNeighbors": [
+        "Lauch",
+        "Tomate"
+      ]
     },
     {
       "id": "c12",
       "name": "Bohnen",
       "family": "Fabaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Aubergine",
+        "Brokkoli",
+        "Eisbergsalat",
+        "Gurke",
+        "Kartoffeln",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Lauch"
+      ]
     },
     {
       "id": "c13",
       "name": "Grünkohl",
       "family": "Brassicaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
     },
     {
       "id": "c14",
       "name": "Spinat",
       "family": "Amaranthaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Aubergine",
+        "Brokkoli",
+        "Eisbergsalat",
+        "Gurke",
+        "Kartoffeln",
+        "Lauch",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ]
     },
     {
       "id": "c15",
       "name": "Petersilie",
       "family": "Apiaceae",
-      "nutrientDemand": "niedrig"
+      "nutrientDemand": "niedrig",
+      "badNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Salat"
+      ]
     },
     {
       "id": "c16",
       "name": "Basilikum",
       "family": "Lamiaceae",
-      "nutrientDemand": "niedrig"
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Paprika"
+      ]
     },
     {
       "id": "c17",
       "name": "Kartoffeln",
       "family": "Solanaceae",
-      "nutrientDemand": "hoch"
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Bohnen",
+        "Spinat"
+      ],
+      "badNeighbors": [
+        "Aubergine",
+        "Gurke",
+        "Kürbis",
+        "Paprika",
+        "Rote Beete",
+        "Tomate"
+      ]
     },
     {
       "id": "c18",
       "name": "Kohlrabi",
       "family": "Brassicaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Aubergine",
+        "Eisbergsalat",
+        "Lauch",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
     },
     {
       "id": "c19",
       "name": "Rote Beete",
       "family": "Amaranthaceae",
-      "nutrientDemand": "mittel"
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Blumenkohl",
+        "Bohnen",
+        "Brokkoli",
+        "Chinakohl",
+        "Dill",
+        "Eisbergsalat",
+        "Grünkohl",
+        "Gurke",
+        "Knoblauch",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Lauch",
+        "Mairübe",
+        "Pak Choi",
+        "Pflücksalat",
+        "Radieschen",
+        "Rotkohl",
+        "Rucola",
+        "Salat",
+        "Spinat",
+        "Tomate",
+        "Weisskohl",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Kartoffeln",
+        "Lauch",
+        "Mangold",
+        "Schnittlauch",
+        "Süssmais"
+      ]
     },
     {
       "id": "c20",
       "name": "Sellerie",
       "family": "Apiaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Brokkoli",
+        "Eisbergsalat",
+        "Gurke",
+        "Pflücksalat",
+        "Salat",
+        "Tomate"
+      ]
+    },
+    {
+      "id": "c21",
+      "name": "Weisskohl",
+      "family": "Brassicaceae",
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c22",
+      "name": "Rotkohl",
+      "family": "Brassicaceae",
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c23",
+      "name": "Blumenkohl",
+      "family": "Brassicaceae",
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c24",
+      "name": "Brokkoli",
+      "family": "Brassicaceae",
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Bohnen",
+        "Dill",
+        "Eisbergsalat",
+        "Erbsen",
+        "Karotte",
+        "Lauch",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Sellerie",
+        "Spinat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Blumenkohl",
+        "Chinakohl",
+        "Grünkohl",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Mairübe",
+        "Pak Choi",
+        "Radieschen",
+        "Rotkohl",
+        "Rucola",
+        "Weisskohl"
+      ]
+    },
+    {
+      "id": "c25",
+      "name": "Lauch",
+      "family": "Amaryllidaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Brokkoli",
+        "Eisbergsalat",
+        "Karotte",
+        "Kohlrabi",
+        "Pflücksalat",
+        "Radieschen",
+        "Rote Beete",
+        "Salat",
+        "Spinat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Bohnen",
+        "Erbsen",
+        "Knoblauch",
+        "Rote Beete",
+        "Schnittlauch",
+        "Zwiebel"
+      ]
+    },
+    {
+      "id": "c26",
+      "name": "Porree",
+      "family": "Amaryllidaceae",
       "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c27",
+      "name": "Fenchel",
+      "family": "Apiaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Gurke"
+      ]
+    },
+    {
+      "id": "c28",
+      "name": "Rucola",
+      "family": "Brassicaceae",
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c29",
+      "name": "Pflücksalat",
+      "family": "Asteraceae",
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Blumenkohl",
+        "Bohnen",
+        "Brokkoli",
+        "Chinakohl",
+        "Dill",
+        "Erbsen",
+        "Grünkohl",
+        "Gurke",
+        "Karotte",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Lauch",
+        "Mairübe",
+        "Pak Choi",
+        "Radieschen",
+        "Rote Beete",
+        "Rotkohl",
+        "Rucola",
+        "Sellerie",
+        "Spinat",
+        "Tomate",
+        "Weisskohl",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Petersilie"
+      ]
+    },
+    {
+      "id": "c30",
+      "name": "Eisbergsalat",
+      "family": "Asteraceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Blumenkohl",
+        "Bohnen",
+        "Brokkoli",
+        "Chinakohl",
+        "Dill",
+        "Erbsen",
+        "Grünkohl",
+        "Gurke",
+        "Karotte",
+        "Kohlrabi",
+        "Kohlrübe",
+        "Lauch",
+        "Mairübe",
+        "Pak Choi",
+        "Radieschen",
+        "Rote Beete",
+        "Rotkohl",
+        "Rucola",
+        "Sellerie",
+        "Spinat",
+        "Tomate",
+        "Weisskohl",
+        "Zwiebel"
+      ],
+      "badNeighbors": [
+        "Petersilie"
+      ]
+    },
+    {
+      "id": "c31",
+      "name": "Aubergine",
+      "family": "Solanaceae",
+      "nutrientDemand": "hoch",
+      "goodNeighbors": [
+        "Bohnen",
+        "Erbsen",
+        "Karotte",
+        "Kohlrabi",
+        "Salat",
+        "Spinat"
+      ],
+      "badNeighbors": [
+        "Kartoffeln",
+        "Paprika",
+        "Tomate"
+      ]
+    },
+    {
+      "id": "c32",
+      "name": "Süssmais",
+      "family": "Poaceae",
+      "nutrientDemand": "hoch",
+      "badNeighbors": [
+        "Rote Beete"
+      ]
+    },
+    {
+      "id": "c33",
+      "name": "Topinambur",
+      "family": "Asteraceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c34",
+      "name": "Chinakohl",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c35",
+      "name": "Pak Choi",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c36",
+      "name": "Schnittlauch",
+      "family": "Amaryllidaceae",
+      "nutrientDemand": "niedrig",
+      "badNeighbors": [
+        "Lauch",
+        "Rote Beete"
+      ]
+    },
+    {
+      "id": "c37",
+      "name": "Dill",
+      "family": "Apiaceae",
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Brokkoli",
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat"
+      ]
+    },
+    {
+      "id": "c38",
+      "name": "Oregano",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c39",
+      "name": "Thymian",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c40",
+      "name": "Rosmarin",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c41",
+      "name": "Majoran",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c42",
+      "name": "Pfefferminze",
+      "family": "Lamiaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c43",
+      "name": "Endivie",
+      "family": "Asteraceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c44",
+      "name": "Portulak",
+      "family": "Portulacaceae",
+      "nutrientDemand": "niedrig"
+    },
+    {
+      "id": "c45",
+      "name": "Mairübe",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c46",
+      "name": "Kohlrübe",
+      "family": "Brassicaceae",
+      "nutrientDemand": "mittel",
+      "goodNeighbors": [
+        "Eisbergsalat",
+        "Pflücksalat",
+        "Rote Beete",
+        "Salat",
+        "Tomate"
+      ],
+      "badNeighbors": [
+        "Brokkoli"
+      ]
+    },
+    {
+      "id": "c47",
+      "name": "Pastinake",
+      "family": "Apiaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c48",
+      "name": "Knoblauch",
+      "family": "Amaryllidaceae",
+      "nutrientDemand": "niedrig",
+      "goodNeighbors": [
+        "Rote Beete"
+      ],
+      "badNeighbors": [
+        "Lauch"
+      ]
+    },
+    {
+      "id": "c49",
+      "name": "Randen",
+      "family": "Amaranthaceae",
+      "nutrientDemand": "mittel"
+    },
+    {
+      "id": "c50",
+      "name": "Chili",
+      "family": "Solanaceae",
+      "nutrientDemand": "hoch"
     }
   ],
   "gardenBeds": [
@@ -142,26 +792,197 @@
       "width": 1,
       "height": 3,
       "notes": "Nahe Küche"
+    },
+    {
+      "id": "b4",
+      "name": "Tunnel 5",
+      "width": 5,
+      "height": 20,
+      "notes": "Ideal für wärmeliebende Pflanzen"
+    },
+    {
+      "id": "b5",
+      "name": "Tunnel 6",
+      "width": 4,
+      "height": 10,
+      "notes": "Ideal für wärmeliebende Pflanzen"
     }
   ],
   "plantingRecords": [
-    { "id": "p1", "bedId": "b1", "cropId": "c1", "year": 2021 },
-    { "id": "p2", "bedId": "b1", "cropId": "c2", "year": 2022 },
-    { "id": "p3", "bedId": "b1", "cropId": "c3", "year": 2023 },
-    { "id": "p4", "bedId": "b1", "cropId": "c18", "year": 2024 },
-    { "id": "p5", "bedId": "b1", "cropId": "c19", "year": 2025 },
-    { "id": "p5", "bedId": "b1", "cropId": "c12", "year": 2026 },
-
-    { "id": "p6", "bedId": "b2", "cropId": "c5", "year": 2021 },
-    { "id": "p7", "bedId": "b2", "cropId": "c6", "year": 2022 },
-    { "id": "p8", "bedId": "b2", "cropId": "c7", "year": 2023 },
-    { "id": "p9", "bedId": "b2", "cropId": "c8", "year": 2024 },
-    { "id": "p10", "bedId": "b2", "cropId": "c9", "year": 2025 },
-
-    { "id": "p11", "bedId": "b3", "cropId": "c15", "year": 2021 },
-    { "id": "p12", "bedId": "b3", "cropId": "c16", "year": 2022 },
-    { "id": "p13", "bedId": "b3", "cropId": "c15", "year": 2023 },
-    { "id": "p14", "bedId": "b3", "cropId": "c16", "year": 2024 },
-    { "id": "p15", "bedId": "b3", "cropId": "c16", "year": 2025 }
+    {
+      "id": "p1",
+      "bedId": "b1",
+      "cropId": "c1",
+      "year": 2021,
+      "role": "main"
+    },
+    {
+      "id": "p2",
+      "bedId": "b1",
+      "cropId": "c2",
+      "year": 2022,
+      "role": "main"
+    },
+    {
+      "id": "p3",
+      "bedId": "b1",
+      "cropId": "c3",
+      "year": 2023,
+      "role": "main"
+    },
+    {
+      "id": "p4",
+      "bedId": "b1",
+      "cropId": "c18",
+      "year": 2024,
+      "role": "main"
+    },
+    {
+      "id": "p5",
+      "bedId": "b1",
+      "cropId": "c19",
+      "year": 2025,
+      "role": "main"
+    },
+    {
+      "id": "p6",
+      "bedId": "b2",
+      "cropId": "c5",
+      "year": 2021,
+      "role": "main"
+    },
+    {
+      "id": "p7",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "main"
+    },
+    {
+      "id": "p8",
+      "bedId": "b2",
+      "cropId": "c7",
+      "year": 2023,
+      "role": "main"
+    },
+    {
+      "id": "p9",
+      "bedId": "b2",
+      "cropId": "c8",
+      "year": 2024,
+      "role": "main"
+    },
+    {
+      "id": "p10",
+      "bedId": "b2",
+      "cropId": "c9",
+      "year": 2025,
+      "role": "main"
+    },
+    {
+      "id": "p11",
+      "bedId": "b3",
+      "cropId": "c15",
+      "year": 2021,
+      "role": "main"
+    },
+    {
+      "id": "p12",
+      "bedId": "b3",
+      "cropId": "c16",
+      "year": 2022,
+      "role": "main"
+    },
+    {
+      "id": "p13",
+      "bedId": "b3",
+      "cropId": "c15",
+      "year": 2023,
+      "role": "main"
+    },
+    {
+      "id": "p14",
+      "bedId": "b3",
+      "cropId": "c16",
+      "year": 2024,
+      "role": "main"
+    },
+    {
+      "id": "p15",
+      "bedId": "b3",
+      "cropId": "c16",
+      "year": 2025,
+      "role": "main"
+    },
+    {
+      "id": "p6",
+      "bedId": "b4",
+      "cropId": "c15",
+      "year": 2021,
+      "role": "main"
+    },
+    {
+      "id": "p7",
+      "bedId": "b4",
+      "cropId": "c16",
+      "year": 2022,
+      "role": "main"
+    },
+    {
+      "id": "p8",
+      "bedId": "b4",
+      "cropId": "c17",
+      "year": 2023,
+      "role": "main"
+    },
+    {
+      "id": "p9",
+      "bedId": "b4",
+      "cropId": "c18",
+      "year": 2024,
+      "role": "main"
+    },
+    {
+      "id": "p10",
+      "bedId": "b4",
+      "cropId": "c19",
+      "year": 2025,
+      "role": "main"
+    },
+    {
+      "id": "p1",
+      "bedId": "b5",
+      "cropId": "c21",
+      "year": 2021,
+      "role": "main"
+    },
+    {
+      "id": "p2",
+      "bedId": "b5",
+      "cropId": "c22",
+      "year": 2022,
+      "role": "main"
+    },
+    {
+      "id": "p3",
+      "bedId": "b5",
+      "cropId": "c23",
+      "year": 2023,
+      "role": "main"
+    },
+    {
+      "id": "p4",
+      "bedId": "b5",
+      "cropId": "c8",
+      "year": 2024,
+      "role": "main"
+    },
+    {
+      "id": "p5",
+      "bedId": "b5",
+      "cropId": "c9",
+      "year": 2025,
+      "role": "main"
+    }
   ]
 }

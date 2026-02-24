@@ -11,6 +11,7 @@ const bed = computed(() => store.bedById(bedId.value))
 
 const year = ref(new Date().getFullYear())
 const cropId = ref('')
+const role = ref<'main' | 'companion'>('main')
 
 const records = computed(() => {
   const now = new Date().getFullYear()
@@ -41,10 +42,12 @@ const addPlanting = () => {
   store.addRecord({
     bedId: bedId.value,
     cropId: cropId.value,
-    year: Number(year.value)
+    year: Number(year.value),
+    role: role.value
   })
 
   cropId.value = ''
+  role.value = 'main'
 }
 </script>
 
@@ -71,6 +74,13 @@ const addPlanting = () => {
               <option v-for="crop in store.crops" :key="crop.id" :value="crop.id">
                 {{ cropIcon(crop) }} {{ crop.name }} ({{ crop.family }} / {{ nutrientDemandLabel(crop.nutrientDemand) }})
               </option>
+            </select>
+          </label>
+          <label class="block text-sm">
+            <span class="mb-1 block font-medium">Typ</span>
+            <select v-model="role" class="min-h-11 w-full rounded-md border border-slate-300 px-3 py-2">
+              <option value="main">Hauptkultur</option>
+              <option value="companion">Nebenkultur</option>
             </select>
           </label>
           <button class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">

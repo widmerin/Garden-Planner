@@ -3,7 +3,10 @@ const route = useRoute()
 const currentYear = new Date().getFullYear()
 
 const navClass = (path: string): string => {
-  const active = route.path === path
+  const active =
+    path === '/'
+      ? route.path === '/'
+      : route.path === path || route.path.startsWith(`${path}/`)
   return active
     ? 'inline-flex min-h-11 w-full items-center justify-center border-b-2 border-emerald-600 px-2 py-2 font-semibold text-emerald-700 sm:w-auto'
     : 'inline-flex min-h-11 w-full items-center justify-center border-b-2 border-transparent px-2 py-2 text-slate-600 hover:border-slate-300 hover:text-slate-900 sm:w-auto'
@@ -23,6 +26,7 @@ const navClass = (path: string): string => {
         <NuxtLink :class="navClass('/')" to="/">Übersicht</NuxtLink>
         <NuxtLink :class="navClass('/beds')" to="/beds">Beete</NuxtLink>
         <NuxtLink :class="navClass('/planung')" to="/planung">Planung {{ currentYear }}</NuxtLink>
+        <NuxtLink :class="navClass('/kulturen')" to="/kulturen">Kulturen</NuxtLink>
         <NuxtLink :class="navClass('/settings')" to="/settings">Einstellungen</NuxtLink>
       </nav>
     </header>
