@@ -44,6 +44,10 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
   const normalized = String(value).toLowerCase().trim()
   return normalized === 'high' || normalized === 'hoch'
 }
+
+const openBed = async (bedId: string) => {
+  await navigateTo(`/beds/${bedId}`)
+}
 </script>
 
 <template>
@@ -58,18 +62,22 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
     </div>
 
     <div class="space-y-3 md:hidden">
-      <article v-for="item in summary" :key="`mobile-${item.bed.id}`" class="card-soft p-3">
+      <article
+        v-for="item in summary"
+        :key="`mobile-${item.bed.id}`"
+        class="card-soft cursor-pointer p-3"
+        role="link"
+        tabindex="0"
+        @click="openBed(item.bed.id)"
+        @keydown.enter.prevent="openBed(item.bed.id)"
+        @keydown.space.prevent="openBed(item.bed.id)"
+      >
         <div class="flex items-start justify-between gap-2">
           <div class="min-w-0">
             <h3 class="truncate text-base font-semibold text-emerald-800">🪴 {{ item.bed.name }}</h3>
             <p class="text-xs text-slate-600">{{ item.bed.width }}m x {{ item.bed.height }}m</p>
           </div>
-          <NuxtLink
-            :to="`/beds/${item.bed.id}`"
-            class="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
-          >
-            Details
-          </NuxtLink>
+          <span class="text-xs font-semibold text-emerald-700">Details →</span>
         </div>
 
         <div class="mt-2">
@@ -126,18 +134,22 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
     </div>
 
     <div class="hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-3">
-      <article v-for="item in summary" :key="item.bed.id" class="card-soft p-4">
+      <article
+        v-for="item in summary"
+        :key="item.bed.id"
+        class="card-soft cursor-pointer p-4"
+        role="link"
+        tabindex="0"
+        @click="openBed(item.bed.id)"
+        @keydown.enter.prevent="openBed(item.bed.id)"
+        @keydown.space.prevent="openBed(item.bed.id)"
+      >
         <div class="mb-3 flex items-start justify-between gap-2">
           <div>
             <h3 class="text-lg font-semibold text-emerald-800">🪴 {{ item.bed.name }}</h3>
             <p class="text-sm text-slate-600">{{ item.bed.width }}m x {{ item.bed.height }}m</p>
           </div>
-          <NuxtLink
-            :to="`/beds/${item.bed.id}`"
-            class="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
-          >
-            Details
-          </NuxtLink>
+          <span class="text-xs font-semibold text-emerald-700">Details →</span>
         </div>
 
         <div class="mb-4">
@@ -190,10 +202,6 @@ const hasHighDemand = (value: NutrientDemand | string): boolean => {
           </div>
           <p v-else class="text-sm text-slate-500">Keine Historie</p>
         </div>
-
-        <NuxtLink :to="`/beds/${item.bed.id}`" class="mt-4 inline-block text-sm font-semibold text-emerald-700 hover:underline">
-          Zum Beet →
-        </NuxtLink>
       </article>
     </div>
   </section>
