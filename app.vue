@@ -25,7 +25,9 @@ watch(
   <div class="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
     <header class="card-soft mb-5 overflow-hidden p-4 sm:mb-6 sm:p-5">
       <div class="flex items-center justify-between gap-3">
-        <h1 class="text-2xl font-bold text-emerald-800">🌿 Anbauplan</h1>
+        <NuxtLink to="/" class="inline-flex items-center text-2xl font-bold text-emerald-800 hover:text-emerald-900">
+          🌿 Anbauplan
+        </NuxtLink>
         <button
           class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-700 sm:hidden"
           type="button"
