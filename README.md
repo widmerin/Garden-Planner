@@ -1,4 +1,4 @@
-# Garden Planner (Nuxt 3)
+# Garden Planner (Nuxt/Vue)
 
 A local-first garden planning app to manage beds, crops, planting history, and simple crop-rotation checks.
 
@@ -33,7 +33,7 @@ A local-first garden planning app to manage beds, crops, planting history, and s
 
 ## Tech Stack
 
-- Nuxt 3 / Vue 3
+- Nuxt 4 / Vue 3
 - Pinia
 - Tailwind CSS
 - Vitest (unit tests)
@@ -60,8 +60,11 @@ npm test         # Run unit tests
 
 ## Data Notes
 
-- App data is stored in localStorage.
-- Seed data is loaded when no local data exists.
+- Data persistence uses **Pinia + `pinia-plugin-persistedstate`**.
+- Storage backend is **`localStorage`** (browser-side).
+- Persisted store key format is `garden-planner:%id` (for this app store: `garden-planner:garden`).
+- Seed data from `gardenHistory.json` is used as initial state when no persisted data exists.
+- A one-time migration reads legacy key `garden-planner:v1` and moves it to the new persisted Pinia store.
 - Use **/settings** to export/import full JSON backups.
 - `gardenHistory.json` now stores optional `goodNeighbors` / `badNeighbors` on crops.
 - Planting records support optional `role` (`main` or `companion`).

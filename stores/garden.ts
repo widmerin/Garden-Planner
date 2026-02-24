@@ -3,14 +3,18 @@ import type { Crop, GardenBed, GardenData, PlantingRecord } from '~/types/models
 import { createId } from '~/utils/id'
 import { evaluateRotation } from '~/utils/rotation'
 import type { PlanAssignment } from '~/utils/planner'
+import seedData from '~/gardenHistory.json'
+
+const LEGACY_STORAGE_KEY = 'garden-planner:v1'
 
 export const useGardenStore = defineStore('garden', {
   state: () => ({
-    beds: [] as GardenBed[],
-    crops: [] as Crop[],
-    records: [] as PlantingRecord[],
+    beds: (seedData.gardenBeds ?? []) as GardenBed[],
+    crops: (seedData.crops ?? []) as Crop[],
+    records: (seedData.plantingRecords ?? []) as PlantingRecord[],
     initialized: false
   }),
+  persist: true,
   getters: {
     bedById: (state) => {
       return (id: string) => state.beds.find((bed) => bed.id === id)
@@ -30,17 +34,28 @@ export const useGardenStore = defineStore('garden', {
       if (this.initialized) {
         return
       }
-
-      const storage = useGardenStorage()
-      const data = storage.load()
-      this.beds = data.gardenBeds
-      this.crops = data.crops
-      this.records = data.plantingRecords
+      // One-time migration from legacy localStorage persistence.
+      if (import.meta.client) {
+        const raw = localStorage.getItem(LEGACY_STORAGE_KEY)
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw) as Partial<GardenData>
+            if (
+              Array.isArray(parsed?.gardenBeds) &&
+              Array.isArray(parsed?.crops) &&
+              Array.isArray(parsed?.plantingRecords)
+            ) {
+              this.beds = parsed.gardenBeds as GardenBed[]
+              this.crops = parsed.crops as Crop[]
+              this.records = parsed.plantingRecords as PlantingRecord[]
+            }
+            localStorage.removeItem(LEGACY_STORAGE_KEY)
+          } catch {
+            // Keep current state if legacy value cannot be parsed.
+          }
+        }
+      }
       this.initialized = true
-    },
-    persist() {
-      const storage = useGardenStorage()
-      storage.save(this.toData())
     },
     toData(): GardenData {
       return {
@@ -51,7 +66,6 @@ export const useGardenStore = defineStore('garden', {
     },
     addBed(payload: Omit<GardenBed, 'id'>) {
       this.beds.push({ ...payload, id: createId('bed') })
-      this.persist()
     },
     updateBed(id: string, payload: Omit<GardenBed, 'id'>) {
       const index = this.beds.findIndex((bed) => bed.id === id)
@@ -60,16 +74,13 @@ export const useGardenStore = defineStore('garden', {
       }
 
       this.beds[index] = { ...payload, id }
-      this.persist()
     },
     deleteBed(id: string) {
       this.beds = this.beds.filter((bed) => bed.id !== id)
       this.records = this.records.filter((record) => record.bedId !== id)
-      this.persist()
     },
     addCrop(payload: Omit<Crop, 'id'>) {
       this.crops.push({ ...payload, id: createId('crop') })
-      this.persist()
     },
     updateCrop(id: string, payload: Omit<Crop, 'id'>) {
       const index = this.crops.findIndex((crop) => crop.id === id)
@@ -78,7 +89,6 @@ export const useGardenStore = defineStore('garden', {
       }
 
       this.crops[index] = { ...payload, id }
-      this.persist()
     },
     addRecord(payload: Omit<PlantingRecord, 'id'>): boolean {
       const normalizedRole = payload.role ?? 'main'
@@ -94,7 +104,6 @@ export const useGardenStore = defineStore('garden', {
       }
 
       this.records.push({ ...payload, role: normalizedRole, id: createId('planting') })
-      this.persist()
       return true
     },
     applyYearPlan(assignments: PlanAssignment[], year: number) {
@@ -121,7 +130,6 @@ export const useGardenStore = defineStore('garden', {
         }
       }
 
-      this.persist()
     },
     evaluateRotation(bedId: string, cropId: string, year: number) {
       return evaluateRotation(bedId, cropId, year, this.crops, this.records)
@@ -130,7 +138,6 @@ export const useGardenStore = defineStore('garden', {
       this.beds = data.gardenBeds
       this.crops = data.crops
       this.records = data.plantingRecords
-      this.persist()
     }
   }
 })
