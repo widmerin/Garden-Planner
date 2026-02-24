@@ -27,6 +27,34 @@ const importData = () => {
   store.replaceAllData(parsed)
   message.value = 'Import erfolgreich.'
 }
+
+const clearPersistedData = () => {
+  if (!import.meta.client) {
+    return
+  }
+
+  const confirmed = window.confirm('Alle lokal gespeicherten Daten wirklich löschen?')
+  if (!confirmed) {
+    return
+  }
+
+  const keysToRemove: string[] = []
+  for (let idx = 0; idx < localStorage.length; idx += 1) {
+    const key = localStorage.key(idx)
+    if (key && key.startsWith('garden-planner:')) {
+      keysToRemove.push(key)
+    }
+  }
+
+  for (const key of keysToRemove) {
+    localStorage.removeItem(key)
+  }
+
+  store.$reset()
+  store.initialize()
+  importText.value = ''
+  message.value = 'Persistierte Daten wurden gelöscht. Seed-Daten wurden neu geladen.'
+}
 </script>
 
 <template>
@@ -61,6 +89,20 @@ const importData = () => {
           <span class="text-sm text-slate-700">{{ message }}</span>
         </div>
       </div>
+    </div>
+
+    <div class="card-soft border border-rose-200 p-4">
+      <h3 class="mb-2 text-lg font-semibold text-rose-800">Persistierte Daten löschen</h3>
+      <p class="mb-3 text-sm text-slate-600">
+        Entfernt alle lokal gespeicherten App-Daten im Browser und lädt wieder die Seed-Daten.
+      </p>
+      <button
+        class="inline-flex min-h-11 items-center justify-center rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-700"
+        type="button"
+        @click="clearPersistedData"
+      >
+        Lokale Daten löschen
+      </button>
     </div>
   </section>
 </template>

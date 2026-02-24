@@ -64,7 +64,6 @@ npm test         # Run unit tests
 - Storage backend is **`localStorage`** (browser-side).
 - Persisted store key format is `garden-planner:%id` (for this app store: `garden-planner:garden`).
 - Seed data from `gardenHistory.json` is used as initial state when no persisted data exists.
-- A one-time migration reads legacy key `garden-planner:v1` and moves it to the new persisted Pinia store.
 - Use **/settings** to export/import full JSON backups.
 - `gardenHistory.json` now stores optional `goodNeighbors` / `badNeighbors` on crops.
 - Planting records support optional `role` (`main` or `companion`).

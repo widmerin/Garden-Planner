@@ -61,9 +61,15 @@ const openBed = async (bedId: string) => {
       <h2 class="text-xl font-semibold text-emerald-900 sm:text-2xl">Beet-Übersicht</h2>
     </div>
 
-    <div class="card-soft flex flex-wrap items-center gap-3 p-3 text-xs font-medium">
-      <span class="text-slate-600">Nährstoffbedarf:</span>
-      <span class="text-slate-700">⚡ = hoher Bedarf</span>
+    <div class="card-soft border border-sky-200 bg-sky-50/60 p-3 text-xs text-sky-900">
+      <p class="inline-flex items-center gap-1.5 font-semibold">
+        <span aria-hidden="true">ℹ️</span>
+        <span>Hinweis</span>
+      </p>
+      <p class="mt-1">
+        Alle Änderungen werden nur lokal in diesem Browser auf diesem Gerät gespeichert.
+        Für Sicherung oder Übertragung nutze bitte den JSON-Export unter Einstellungen.
+      </p>
     </div>
 
     <div class="space-y-3 md:hidden">

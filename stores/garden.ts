@@ -5,8 +5,6 @@ import { evaluateRotation } from '~/utils/rotation'
 import type { PlanAssignment } from '~/utils/planner'
 import seedData from '~/gardenHistory.json'
 
-const LEGACY_STORAGE_KEY = 'garden-planner:v1'
-
 export const useGardenStore = defineStore('garden', {
   state: () => ({
     beds: (seedData.gardenBeds ?? []) as GardenBed[],
@@ -33,27 +31,6 @@ export const useGardenStore = defineStore('garden', {
     initialize() {
       if (this.initialized) {
         return
-      }
-      // One-time migration from legacy localStorage persistence.
-      if (import.meta.client) {
-        const raw = localStorage.getItem(LEGACY_STORAGE_KEY)
-        if (raw) {
-          try {
-            const parsed = JSON.parse(raw) as Partial<GardenData>
-            if (
-              Array.isArray(parsed?.gardenBeds) &&
-              Array.isArray(parsed?.crops) &&
-              Array.isArray(parsed?.plantingRecords)
-            ) {
-              this.beds = parsed.gardenBeds as GardenBed[]
-              this.crops = parsed.crops as Crop[]
-              this.records = parsed.plantingRecords as PlantingRecord[]
-            }
-            localStorage.removeItem(LEGACY_STORAGE_KEY)
-          } catch {
-            // Keep current state if legacy value cannot be parsed.
-          }
-        }
       }
       this.initialized = true
     },
