@@ -24,6 +24,12 @@ describe('suggestBedDistribution', () => {
     expect(new Set(result.assignments.map((entry) => entry.bedId)).size).toBe(2)
   })
 
+  it('supports selecting the same crop multiple times', () => {
+    const result = suggestBedDistribution(['c2', 'c2'], beds, crops, records, 2026)
+    expect(result.assignments).toHaveLength(2)
+    expect(result.assignments.every((entry) => entry.cropId === 'c2')).toBe(true)
+  })
+
   it('returns overflow crops as unassigned when more crops than beds are selected', () => {
     const result = suggestBedDistribution(['c1', 'c2', 'c3'], beds, crops, records, 2026)
     expect(result.unassignedCropIds).toHaveLength(1)
