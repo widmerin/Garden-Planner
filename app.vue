@@ -21,6 +21,7 @@ const navClass = (path: string): string => {
       <nav class="mt-4 grid grid-cols-1 gap-1 border-b border-slate-200 text-sm sm:flex sm:flex-wrap sm:gap-5">
         <NuxtLink :class="navClass('/')" to="/">Übersicht</NuxtLink>
         <NuxtLink :class="navClass('/beds')" to="/beds">Beete</NuxtLink>
+        <NuxtLink :class="navClass('/planung')" to="/planung">Planung</NuxtLink>
         <NuxtLink :class="navClass('/settings')" to="/settings">Einstellungen</NuxtLink>
       </nav>
     </header>

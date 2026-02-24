@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { Crop, GardenBed, GardenData, PlantingRecord } from '~/types/models'
 import { createId } from '~/utils/id'
 import { evaluateRotation } from '~/utils/rotation'
+import type { PlanAssignment } from '~/utils/planner'
 
 export const useGardenStore = defineStore('garden', {
   state: () => ({
@@ -81,6 +82,21 @@ export const useGardenStore = defineStore('garden', {
     },
     addRecord(payload: Omit<PlantingRecord, 'id'>) {
       this.records.push({ ...payload, id: createId('planting') })
+      this.persist()
+    },
+    applyYearPlan(assignments: PlanAssignment[], year: number) {
+      const assignedBedIds = new Set(assignments.map((entry) => entry.bedId))
+      this.records = this.records.filter((record) => !(record.year === year && assignedBedIds.has(record.bedId)))
+
+      for (const entry of assignments) {
+        this.records.push({
+          id: createId('planting'),
+          bedId: entry.bedId,
+          cropId: entry.cropId,
+          year
+        })
+      }
+
       this.persist()
     },
     evaluateRotation(bedId: string, cropId: string, year: number) {
