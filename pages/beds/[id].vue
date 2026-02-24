@@ -11,7 +11,8 @@ const bed = computed(() => store.bedById(bedId.value))
 
 const year = ref(new Date().getFullYear())
 const cropId = ref('')
-const role = ref<'main' | 'companion'>('main')
+const role = ref<'main' | 'companion'>('companion')
+const formMessage = ref('')
 
 const records = computed(() => {
   const now = new Date().getFullYear()
@@ -34,20 +35,32 @@ const recommendedCrops = computed(() => {
     .filter((crop): crop is NonNullable<typeof crop> => Boolean(crop))
 })
 
+const hasMainInSelectedYear = computed(() => {
+  return store.records.some((record) => {
+    return record.bedId === bedId.value && record.year === Number(year.value) && (record.role ?? 'main') === 'main'
+  })
+})
+
 const addPlanting = () => {
   if (!bed.value || !cropId.value || !year.value) {
     return
   }
 
-  store.addRecord({
+  const success = store.addRecord({
     bedId: bedId.value,
     cropId: cropId.value,
     year: Number(year.value),
     role: role.value
   })
 
+  if (!success) {
+    formMessage.value = `Für ${Number(year.value)} ist in diesem Beet bereits eine Hauptkultur vorhanden.`
+    return
+  }
+
   cropId.value = ''
-  role.value = 'main'
+  role.value = 'companion'
+  formMessage.value = 'Anpflanzung gespeichert.'
 }
 </script>
 
@@ -83,9 +96,17 @@ const addPlanting = () => {
               <option value="companion">Nebenkultur</option>
             </select>
           </label>
-          <button class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700" type="submit">
+          <p v-if="role === 'main' && hasMainInSelectedYear" class="text-xs font-medium text-rose-700">
+            Für dieses Jahr existiert bereits eine Hauptkultur in diesem Beet.
+          </p>
+          <button
+            class="inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+            :disabled="role === 'main' && hasMainInSelectedYear"
+            type="submit"
+          >
             Anpflanzung speichern
           </button>
+          <p class="text-sm text-slate-700">{{ formMessage }}</p>
         </form>
       </div>
 

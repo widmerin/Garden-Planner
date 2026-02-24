@@ -80,9 +80,22 @@ export const useGardenStore = defineStore('garden', {
       this.crops[index] = { ...payload, id }
       this.persist()
     },
-    addRecord(payload: Omit<PlantingRecord, 'id'>) {
-      this.records.push({ ...payload, role: payload.role ?? 'main', id: createId('planting') })
+    addRecord(payload: Omit<PlantingRecord, 'id'>): boolean {
+      const normalizedRole = payload.role ?? 'main'
+
+      if (normalizedRole === 'main') {
+        const hasMainInBedYear = this.records.some((record) => {
+          return record.bedId === payload.bedId && record.year === payload.year && (record.role ?? 'main') === 'main'
+        })
+
+        if (hasMainInBedYear) {
+          return false
+        }
+      }
+
+      this.records.push({ ...payload, role: normalizedRole, id: createId('planting') })
       this.persist()
+      return true
     },
     applyYearPlan(assignments: PlanAssignment[], year: number) {
       const assignedBedIds = new Set(assignments.map((entry) => entry.bedId))

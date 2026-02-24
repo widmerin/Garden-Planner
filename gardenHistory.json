@@ -983,6 +983,181 @@
       "cropId": "c9",
       "year": 2025,
       "role": "main"
+    },
+    {
+      "id": "p16",
+      "bedId": "b1",
+      "cropId": "c6",
+      "year": 2021,
+      "role": "companion"
+    },
+    {
+      "id": "p17",
+      "bedId": "b1",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "companion"
+    },
+    {
+      "id": "p18",
+      "bedId": "b1",
+      "cropId": "c6",
+      "year": 2023,
+      "role": "companion"
+    },
+    {
+      "id": "p19",
+      "bedId": "b1",
+      "cropId": "c6",
+      "year": 2024,
+      "role": "companion"
+    },
+    {
+      "id": "p20",
+      "bedId": "b1",
+      "cropId": "c6",
+      "year": 2025,
+      "role": "companion"
+    },
+    {
+      "id": "p21",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2021,
+      "role": "companion"
+    },
+    {
+      "id": "p22",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "companion"
+    },
+    {
+      "id": "p23",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2023,
+      "role": "companion"
+    },
+    {
+      "id": "p24",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2024,
+      "role": "companion"
+    },
+    {
+      "id": "p25",
+      "bedId": "b2",
+      "cropId": "c6",
+      "year": 2025,
+      "role": "companion"
+    },
+    {
+      "id": "p26",
+      "bedId": "b3",
+      "cropId": "c6",
+      "year": 2021,
+      "role": "companion"
+    },
+    {
+      "id": "p27",
+      "bedId": "b3",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "companion"
+    },
+    {
+      "id": "p28",
+      "bedId": "b3",
+      "cropId": "c43",
+      "year": 2023,
+      "role": "companion"
+    },
+    {
+      "id": "p29",
+      "bedId": "b3",
+      "cropId": "c6",
+      "year": 2024,
+      "role": "companion"
+    },
+    {
+      "id": "p30",
+      "bedId": "b3",
+      "cropId": "c6",
+      "year": 2025,
+      "role": "companion"
+    },
+    {
+      "id": "p31",
+      "bedId": "b4",
+      "cropId": "c6",
+      "year": 2021,
+      "role": "companion"
+    },
+    {
+      "id": "p32",
+      "bedId": "b4",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "companion"
+    },
+    {
+      "id": "p33",
+      "bedId": "b4",
+      "cropId": "c6",
+      "year": 2023,
+      "role": "companion"
+    },
+    {
+      "id": "p34",
+      "bedId": "b4",
+      "cropId": "c43",
+      "year": 2024,
+      "role": "companion"
+    },
+    {
+      "id": "p35",
+      "bedId": "b4",
+      "cropId": "c6",
+      "year": 2025,
+      "role": "companion"
+    },
+    {
+      "id": "p36",
+      "bedId": "b5",
+      "cropId": "c6",
+      "year": 2021,
+      "role": "companion"
+    },
+    {
+      "id": "p37",
+      "bedId": "b5",
+      "cropId": "c6",
+      "year": 2022,
+      "role": "companion"
+    },
+    {
+      "id": "p38",
+      "bedId": "b5",
+      "cropId": "c6",
+      "year": 2023,
+      "role": "companion"
+    },
+    {
+      "id": "p39",
+      "bedId": "b5",
+      "cropId": "c6",
+      "year": 2024,
+      "role": "companion"
+    },
+    {
+      "id": "p40",
+      "bedId": "b5",
+      "cropId": "c43",
+      "year": 2025,
+      "role": "companion"
     }
   ]
 }

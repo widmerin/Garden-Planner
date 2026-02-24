@@ -23,6 +23,14 @@ const roleLabel = (role: string | undefined): string => {
   }
   return 'Hauptkultur'
 }
+
+const roleClass = (role: string | undefined): string => {
+  if (role === 'companion') {
+    return 'border-sky-200 bg-sky-50 text-sky-800'
+  }
+  return 'border-emerald-200 bg-emerald-50 text-emerald-800'
+}
+
 </script>
 
 <template>
@@ -44,7 +52,11 @@ const roleLabel = (role: string | undefined): string => {
         </div>
         <p class="text-xs text-slate-600">Familie: {{ cropById.get(record.cropId)?.family ?? '-' }}</p>
         <p class="text-xs text-slate-600">Nährstoffbedarf: {{ nutrientDemandForRecord(record.cropId) }}</p>
-        <p class="text-xs text-slate-600">Typ: {{ roleLabel(record.role) }}</p>
+        <p class="mt-1">
+          <span class="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold" :class="roleClass(record.role)">
+            {{ roleLabel(record.role) }}
+          </span>
+        </p>
       </article>
     </div>
 
@@ -70,7 +82,11 @@ const roleLabel = (role: string | undefined): string => {
           </td>
           <td class="py-2">{{ cropById.get(record.cropId)?.family ?? '-' }}</td>
           <td class="py-2">{{ nutrientDemandForRecord(record.cropId) }}</td>
-          <td class="py-2">{{ roleLabel(record.role) }}</td>
+          <td class="py-2">
+            <span class="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold" :class="roleClass(record.role)">
+              {{ roleLabel(record.role) }}
+            </span>
+          </td>
         </tr>
       </tbody>
       </table>
